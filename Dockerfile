@@ -1,4 +1,4 @@
-FROM python:3.12
+FROM python:3.12-slim-bookworm
 
 ARG BUILDX_QEMU_ENV
 
@@ -40,4 +40,5 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get install -qq -y --fix-missing --no-ins
   && rm -rf /usr/share/doc/*
 
 ADD ./TwitchChannelPointsMiner ./TwitchChannelPointsMiner
+COPY ./run.py ./
 ENTRYPOINT [ "python", "run.py" ]
