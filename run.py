@@ -14,7 +14,7 @@ from TwitchChannelPointsMiner.classes.entities.Streamer import StreamerSettings
 envVariables = [
     "TWITCH_USERNAME",
     "TWITCH_PASSWORD",
-    "DISCORD_WEBHOOK_URL"
+    "DISCORD_WEBHOOK_URL",
     "STREAMER_LIST"
 ]
 
