@@ -33,7 +33,7 @@ twitch_miner = TwitchChannelPointsMiner(
         Priority.DROPS,
         Priority.ORDER
     ],
-    enable_analytics=False,
+    enable_analytics=True,
     disable_ssl_cert_verification=False,
     disable_at_in_nickname=False,
     logger_settings=LoggerSettings(
