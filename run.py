@@ -7,6 +7,7 @@ from TwitchChannelPointsMiner import TwitchChannelPointsMiner
 from TwitchChannelPointsMiner.logger import LoggerSettings, ColorPalette
 from TwitchChannelPointsMiner.classes.Chat import ChatPresence
 from TwitchChannelPointsMiner.classes.Discord import Discord
+from TwitchChannelPointsMiner.classes.Gotify import Gotify
 from TwitchChannelPointsMiner.classes.Settings import Priority, Events, FollowersOrder
 from TwitchChannelPointsMiner.classes.entities.Bet import Strategy, BetSettings, Condition, OutcomeKeys, FilterCondition, DelayMode
 from TwitchChannelPointsMiner.classes.entities.Streamer import StreamerSettings
@@ -15,6 +16,7 @@ envVariables = [
     "TWITCH_USERNAME",
     "TWITCH_PASSWORD",
     "DISCORD_WEBHOOK_URL",
+    "GOTIFY_TOKEN",
     "STREAMER_LIST"
 ]
 
@@ -53,6 +55,11 @@ twitch_miner = TwitchChannelPointsMiner(
             webhook_api=environ.get("DISCORD_WEBHOOK_URL", "none"),
             events=[Events.STREAMER_ONLINE, Events.STREAMER_OFFLINE, Events.BET_LOSE, Events.CHAT_MENTION],
         ),
+        gotify=Gotify(
+            endpoint=f"https://gotify.mairimashita.org/message?token={environ.get('GOTIFY_TOKEN', "")}",
+            priority=8,
+            events=[Events.STREAMER_ONLINE, Events.STREAMER_OFFLINE, Events.BET_LOSE, Events.CHAT_MENTION], 
+        )
     ),
     streamer_settings=StreamerSettings(
         make_predictions=False,
@@ -82,6 +89,8 @@ twitch_miner = TwitchChannelPointsMiner(
 )
 
 streamers = environ.get("STREAMER_LIST", "").split(",")
+
+twitch_miner.analytics(host="0.0.0.0", port=5000, refresh=5, days_ago=7)   # Start the Analytics web-server
 
 twitch_miner.mine(streamers,
     followers=False,
