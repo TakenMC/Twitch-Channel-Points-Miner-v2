@@ -17,6 +17,7 @@ envVariables = [
     "TWITCH_PASSWORD",
     "DISCORD_WEBHOOK_URL",
     "GOTIFY_URL",
+    "GOTIFY_TOKEN",
     "STREAMER_LIST"
 ]
 
@@ -56,7 +57,7 @@ twitch_miner = TwitchChannelPointsMiner(
             events=[Events.STREAMER_ONLINE, Events.STREAMER_OFFLINE, Events.BET_LOSE, Events.CHAT_MENTION],
         ),
         gotify=Gotify(
-            endpoint=environ.get("GOTIFY_URL", "none"),
+            endpoint=f"{environ.get("GOTIFY_URL", "none")}/message?token={environ.get('GOTIFY_TOKEN', "none")}",
             priority=8,
             events=[Events.STREAMER_ONLINE, Events.STREAMER_OFFLINE, Events.BET_LOSE, Events.CHAT_MENTION], 
         )
