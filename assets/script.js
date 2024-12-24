@@ -231,6 +231,11 @@ function hideStreamerColumn() {
     streamerColumn.style.display = 'none';
 }
 
+function showStreamerColumn() {
+    const streamerColumn = document.getElementById('streamers');
+    streamerColumn.style.display = 'block';
+}
+
 function formatDate(date) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
@@ -302,6 +307,10 @@ function getStreamers() {
         } else {
             // If no selected streamer is found, default to the first streamer in the list
             currentStreamer = streamersList.length > 0 ? streamersList[0].name : null;
+        }
+
+        if (streamersList.length > 0) {
+            showStreamerColumn();
         }
 
         // Ensure the selected streamer is still active and scrolled into view
