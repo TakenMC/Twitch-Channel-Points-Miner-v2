@@ -1,1 +1,8 @@
+cookies
+analytics
+logs
 .venv
+.env
+
+# pycache
+**/**/__pycache__
