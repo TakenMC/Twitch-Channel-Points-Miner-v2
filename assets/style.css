@@ -68,3 +68,7 @@ a {
     padding: 0;
     border-radius: 5px;
 }
+
+.hide-on-empty {
+    display: none;
+}

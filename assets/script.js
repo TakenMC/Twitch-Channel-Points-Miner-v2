@@ -220,7 +220,16 @@ $(document).ready(function () {
             // $("#log-content").text('');
         }
     });
+
+    if (streamersList.length === 0) {
+        hideStreamerColumn();
+    }
 });
+
+function hideStreamerColumn() {
+    const streamerColumn = document.getElementById('streamers');
+    streamerColumn.style.display = 'none';
+}
 
 function formatDate(date) {
     var d = new Date(date),
