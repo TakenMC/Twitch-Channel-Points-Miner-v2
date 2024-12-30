@@ -134,7 +134,7 @@ class Streamer(object):
         logger.info(
             f"{self} is Offline!",
             extra={
-                "emoji": ":sleeping:",
+                "emoji": "❌",
                 "event": Events.STREAMER_OFFLINE,
             },
         )
@@ -150,7 +150,7 @@ class Streamer(object):
         logger.info(
             f"{self} is Online!",
             extra={
-                "emoji": ":partying_face:",
+                "emoji": "✅",
                 "event": Events.STREAMER_ONLINE,
             },
         )
