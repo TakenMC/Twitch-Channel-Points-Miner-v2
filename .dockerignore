@@ -1,0 +1,11 @@
+.env
+.envrc
+.git
+.gitignore
+.venv
+.vscode
+Dockerfile
+analytics
+cookies
+example.py
+logs

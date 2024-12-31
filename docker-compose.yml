@@ -1,0 +1,16 @@
+services:
+  ttvpointminer:
+    image: ghcr.io/takenmc/ttvpointminer
+    container_name: ttvpointminer
+    restart: unless-stopped
+    environment:
+      - TWITCH_USERNAME=${TWITCH_USERNAME}
+      - TWITCH_PASSWORD=${TWITCH_PASSWORD}
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
+      - STREAMER_LIST=${STREAMER_LIST}
+      - GOTIFY_URL=${GOTIFY_URL}
+      - GOTIFY_TOKEN=${GOTIFY_TOKEN}
+    volumes:
+      - ./cookies:/app/cookies
+      - ./analytics:/app/analytics
+      - ./logs:/app/logs
