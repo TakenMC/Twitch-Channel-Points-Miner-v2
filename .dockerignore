@@ -1,7 +1,6 @@
 .git
 .venv
 .vscode
-assets
 old
 .dockerignore
 .env
