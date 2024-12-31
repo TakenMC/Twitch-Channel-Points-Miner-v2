@@ -1,5 +1,3 @@
-from textwrap import dedent
-
 import requests
 
 from TwitchChannelPointsMiner.classes.Settings import Events
@@ -14,10 +12,9 @@ class Webhook(object):
         self.events = [str(e) for e in events]
 
     def send(self, message: str, event: Events) -> None:
-        
         if str(event) in self.events:
-            url = self.endpoint + f"?event_name={str(event)}&message={message}" 
-            
+            url = self.endpoint + f"?event_name={str(event)}&message={message}"
+
             if self.method.lower() == "get":
                 requests.get(url=url)
             elif self.method.lower() == "post":

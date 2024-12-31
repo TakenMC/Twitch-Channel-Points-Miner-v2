@@ -9,7 +9,14 @@ from TwitchChannelPointsMiner.classes.Chat import ChatPresence
 from TwitchChannelPointsMiner.classes.Discord import Discord
 from TwitchChannelPointsMiner.classes.Gotify import Gotify
 from TwitchChannelPointsMiner.classes.Settings import Priority, Events, FollowersOrder
-from TwitchChannelPointsMiner.classes.entities.Bet import Strategy, BetSettings, Condition, OutcomeKeys, FilterCondition, DelayMode
+from TwitchChannelPointsMiner.classes.entities.Bet import (
+    Strategy,
+    BetSettings,
+    Condition,
+    OutcomeKeys,
+    FilterCondition,
+    DelayMode,
+)
 from TwitchChannelPointsMiner.classes.entities.Streamer import StreamerSettings
 
 envVariables = [
@@ -18,7 +25,7 @@ envVariables = [
     "DISCORD_WEBHOOK_URL",
     "GOTIFY_URL",
     "GOTIFY_TOKEN",
-    "STREAMER_LIST"
+    "STREAMER_LIST",
 ]
 
 for envVar in envVariables:
@@ -29,11 +36,7 @@ twitch_miner = TwitchChannelPointsMiner(
     username=environ.get("TWITCH_USERNAME", "none"),
     password=environ.get("TWITCH_PASSWORD", "none"),
     claim_drops_startup=True,
-    priority=[
-        Priority.STREAK,
-        Priority.DROPS,
-        Priority.ORDER
-    ],
+    priority=[Priority.STREAK, Priority.DROPS, Priority.ORDER],
     enable_analytics=True,
     disable_ssl_cert_verification=False,
     disable_at_in_nickname=False,
@@ -48,19 +51,27 @@ twitch_miner = TwitchChannelPointsMiner(
         less=False,
         colored=True,
         color_palette=ColorPalette(
-            STREAMER_online="GREEN",
-            streamer_offline="red",
-            BET_wiN=Fore.MAGENTA
+            STREAMER_online="GREEN", streamer_offline="red", BET_wiN=Fore.MAGENTA
         ),
         discord=Discord(
             webhook_api=environ.get("DISCORD_WEBHOOK_URL", "none"),
-            events=[Events.STREAMER_ONLINE, Events.STREAMER_OFFLINE, Events.BET_LOSE, Events.CHAT_MENTION],
+            events=[
+                Events.STREAMER_ONLINE,
+                Events.STREAMER_OFFLINE,
+                Events.BET_LOSE,
+                Events.CHAT_MENTION,
+            ],
         ),
         gotify=Gotify(
             endpoint=f"{environ.get("GOTIFY_URL", "none")}/message?token={environ.get('GOTIFY_TOKEN', "none")}",
             priority=8,
-            events=[Events.STREAMER_ONLINE, Events.STREAMER_OFFLINE, Events.BET_LOSE, Events.CHAT_MENTION], 
-        )
+            events=[
+                Events.STREAMER_ONLINE,
+                Events.STREAMER_OFFLINE,
+                Events.BET_LOSE,
+                Events.CHAT_MENTION,
+            ],
+        ),
     ),
     streamer_settings=StreamerSettings(
         make_predictions=False,
@@ -68,7 +79,6 @@ twitch_miner = TwitchChannelPointsMiner(
         claim_drops=True,
         claim_moments=True,
         watch_streak=True,
-
         community_goals=False,
         chat=ChatPresence.ONLINE,
         bet=BetSettings(
@@ -81,19 +91,16 @@ twitch_miner = TwitchChannelPointsMiner(
             delay=6,
             minimum_points=20000,
             filter_condition=FilterCondition(
-                by=OutcomeKeys.TOTAL_USERS,
-                where=Condition.LTE,
-                value=800
-            )
-        )
-    )
+                by=OutcomeKeys.TOTAL_USERS, where=Condition.LTE, value=800
+            ),
+        ),
+    ),
 )
 
 streamers = environ.get("STREAMER_LIST", "").split(",")
 
-twitch_miner.analytics(host="0.0.0.0", port=5000, refresh=5, days_ago=7)   # Start the Analytics web-server
+twitch_miner.analytics(
+    host="0.0.0.0", port=5000, refresh=5, days_ago=7
+)  # Start the Analytics web-server
 
-twitch_miner.mine(streamers,
-    followers=False,
-    followers_order=FollowersOrder.ASC
-)
+twitch_miner.mine(streamers, followers=False, followers_order=FollowersOrder.ASC)
