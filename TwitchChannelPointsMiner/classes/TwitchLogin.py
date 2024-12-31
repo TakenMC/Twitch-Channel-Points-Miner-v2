@@ -8,19 +8,17 @@ import copy
 import logging
 import os
 import pickle
+from datetime import datetime, timedelta, timezone
+from time import sleep
 
 # import webbrowser
 # import browser_cookie3
-
 import requests
 
 from TwitchChannelPointsMiner.classes.Exceptions import (
     WrongCookiesException,
 )
-from TwitchChannelPointsMiner.constants import CLIENT_ID, GQLOperations, USER_AGENTS
-
-from datetime import datetime, timedelta, timezone
-from time import sleep
+from TwitchChannelPointsMiner.constants import CLIENT_ID, USER_AGENTS, GQLOperations
 
 logger = logging.getLogger(__name__)
 
